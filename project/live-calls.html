@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Elidine — Live Calls</title>
+  <style>
+    :root {
+      --bg: #1d130b;
+      --ivory: #f6ede0;
+      --gold: #c9a16a;
+      --gold-soft: #dcbb8a;
+      --espresso: #2a1a0e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ivory);
+      min-height: 100vh;
+      padding: 40px 24px;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; }
+    h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+    h1 em { color: var(--gold-soft); font-style: normal; }
+    .sub { color: rgba(246,237,224,.6); font-size: 14px; margin-bottom: 32px; }
+    .auth, .call-card, .player {
+      background: rgba(246,237,224,.04);
+      border: 1px solid rgba(246,237,224,.14);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    label { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; color: var(--gold-soft); }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--espresso);
+      border: 1px solid rgba(246,237,224,.2);
+      border-radius: 6px;
+      color: var(--ivory);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    button {
+      padding: 10px 20px;
+      background: var(--gold);
+      color: var(--espresso);
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    button.secondary {
+      background: transparent;
+      border: 1px solid rgba(246,237,224,.3);
+      color: var(--ivory);
+    }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+    .status { font-size: 12px; color: var(--gold); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
+    .error { color: #e88; font-size: 13px; margin-top: 8px; }
+    .empty { color: rgba(246,237,224,.5); font-size: 14px; padding: 24px 0; text-align: center; }
+    a.back { color: var(--gold); font-size: 13px; text-decoration: none; display: inline-block; margin-bottom: 24px; }
+    a.back:hover { text-decoration: underline; }
+    .call-card h3 { font-size: 18px; margin-bottom: 6px; }
+    .meta { font-size: 13px; color: rgba(246,237,224,.65); margin-bottom: 16px; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .meter {
+      height: 8px;
+      background: rgba(246,237,224,.12);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+    .meter span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), #f0d2a0);
+      transition: width .1s linear;
+    }
+    .hint { font-size: 12px; color: rgba(246,237,224,.55); margin-top: 12px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="admin.html">← Booking admin</a>
+    <h1>Live <em>calls</em></h1>
+    <p class="sub">Monitor active Vapi phone calls in real time. Audio streams over a secure WebSocket while the call is in progress.</p>
+
+    <div class="auth" id="authPanel">
+      <label for="adminKey">Admin API key</label>
+      <input type="password" id="adminKey" placeholder="Enter your ADMIN_API_KEY"/>
+      <button type="button" id="refreshBtn">Refresh live calls</button>
+      <p class="error" id="authError" hidden></p>
+    </div>
+
+    <div id="status" class="status" hidden></div>
+    <div id="calls"></div>
+
+    <div class="player" id="playerPanel" hidden>
+      <h3>Listening live</h3>
+      <p class="meta" id="playerMeta"></p>
+      <div class="actions">
+        <button type="button" id="stopListenBtn" class="secondary">Stop listening</button>
+      </div>
+      <div class="meter"><span id="meterBar"></span></div>
+      <p class="hint">If audio sounds choppy, keep this tab focused. The stream ends automatically when the caller hangs up.</p>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = window.location.origin;
+    const SAMPLE_RATE = 16000;
+    const keyInput = document.getElementById('adminKey');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const authError = document.getElementById('authError');
+    const statusEl = document.getElementById('status');
+    const callsEl = document.getElementById('calls');
+    const playerPanel = document.getElementById('playerPanel');
+    const playerMeta = document.getElementById('playerMeta');
+    const stopListenBtn = document.getElementById('stopListenBtn');
+    const meterBar = document.getElementById('meterBar');
+
+    let pollTimer = null;
+    let listenSocket = null;
+    let audioContext = null;
+    let nextPlayTime = 0;
+
+    const savedKey = sessionStorage.getItem('elidine_admin_key');
+    if (savedKey) keyInput.value = savedKey;
+
+    function getKey() {
+      const key = keyInput.value.trim();
+      if (key) sessionStorage.setItem('elidine_admin_key', key);
+      return key;
+    }
+
+    function stopListening() {
+      if (listenSocket) {
+        listenSocket.close();
+        listenSocket = null;
+      }
+      if (audioContext) {
+        audioContext.close().catch(() => {});
+        audioContext = null;
+      }
+      nextPlayTime = 0;
+      meterBar.style.width = '0%';
+      playerPanel.hidden = true;
+    }
+
+    function schedulePcmChunk(int16) {
+      if (!audioContext) return;
+
+      const float32 = new Float32Array(int16.length);
+      let peak = 0;
+      for (let i = 0; i < int16.length; i++) {
+        const sample = int16[i] / 32768;
+        float32[i] = sample;
+        peak = Math.max(peak, Math.abs(sample));
+      }
+      meterBar.style.width = `${Math.min(100, peak * 100)}%`;
+
+      const buffer = audioContext.createBuffer(1, float32.length, SAMPLE_RATE);
+      buffer.copyToChannel(float32, 0);
+
+      const source = audioContext.createBufferSource();
+      source.buffer = buffer;
+      source.connect(audioContext.destination);
+
+      const now = audioContext.currentTime;
+      if (nextPlayTime < now) nextPlayTime = now + 0.05;
+      source.start(nextPlayTime);
+      nextPlayTime += buffer.duration;
+    }
+
+    async function startListening(call) {
+      if (!call.listenUrl) {
+        alert('No live listen URL is available for this call yet.');
+        return;
+      }
+
+      stopListening();
+      playerPanel.hidden = false;
+      playerMeta.textContent = `${call.customerNumber || 'Unknown caller'} · ${call.status} · ${call.id}`;
+
+      audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: SAMPLE_RATE });
+      await audioContext.resume();
+
+      listenSocket = new WebSocket(call.listenUrl);
+      listenSocket.binaryType = 'arraybuffer';
+
+      listenSocket.onmessage = (event) => {
+        if (typeof event.data === 'string') return;
+        const int16 = new Int16Array(event.data);
+        schedulePcmChunk(int16);
+      };
+
+      listenSocket.onclose = () => {
+        playerMeta.textContent += ' · stream ended';
+        meterBar.style.width = '0%';
+      };
+
+      listenSocket.onerror = () => {
+        alert('Could not connect to the live audio stream.');
+        stopListening();
+      };
+    }
+
+    function renderCalls(calls) {
+      if (!calls.length) {
+        callsEl.innerHTML = '<p class="empty">No active calls right now. This page refreshes automatically every 5 seconds.</p>';
+        return;
+      }
+
+      callsEl.innerHTML = calls.map((call) => `
+        <div class="call-card">
+          <h3>${call.customerNumber || 'Unknown caller'}</h3>
+          <p class="meta">${call.status} · started ${new Date(call.startedAt).toLocaleString()}</p>
+          <div class="actions">
+            <button type="button" data-listen="${call.id}" ${call.listenUrl ? '' : 'disabled'}>Listen live</button>
+          </div>
+        </div>
+      `).join('');
+
+      const callMap = Object.fromEntries(calls.map((c) => [c.id, c]));
+      callsEl.querySelectorAll('[data-listen]').forEach((btn) => {
+        btn.addEventListener('click', () => startListening(callMap[btn.dataset.listen]));
+      });
+    }
+
+    async function loadLiveCalls() {
+      authError.hidden = true;
+      const key = getKey();
+      if (!key) {
+        authError.textContent = 'Enter your admin API key.';
+        authError.hidden = false;
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/live-calls`, {
+          headers: { 'X-Admin-Key': key },
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Request failed');
+
+        statusEl.hidden = false;
+        statusEl.textContent = `${data.calls.length} active call${data.calls.length === 1 ? '' : 's'}`;
+        renderCalls(data.calls);
+      } catch (err) {
+        authError.textContent = err.message;
+        authError.hidden = false;
+      }
+    }
+
+    function startPolling() {
+      if (pollTimer) clearInterval(pollTimer);
+      loadLiveCalls();
+      pollTimer = setInterval(loadLiveCalls, 5000);
+    }
+
+    refreshBtn.addEventListener('click', startPolling);
+    stopListenBtn.addEventListener('click', stopListening);
+    if (savedKey) startPolling();
+  </script>
+</body>
+</html>
