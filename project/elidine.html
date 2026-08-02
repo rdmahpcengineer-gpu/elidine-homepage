@@ -1,0 +1,1609 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Elidine — Couture Braiding Atelier · Garland, TX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+/* ---------- Design tokens ---------- */
+:root{
+  --ivory:#f6ede0;
+  --ivory-2:#f1e6d4;
+  --cream:#ead7bb;
+  --sand:#d9c3a0;
+  --espresso:#1d130b;
+  --espresso-2:#2a1c11;
+  --mocha:#5b3f29;
+  --ash:#8a7560;
+  --cognac:#a45a26;
+  --cognac-2:#8a4a1d;
+  --gold:#c9a16a;
+  --gold-soft:#dcbb8a;
+  --line:rgba(29,19,11,.16);
+  --line-soft:rgba(29,19,11,.08);
+
+  --serif:'Playfair Display', 'Cormorant Garamond', serif;
+  --serif-2:'Cormorant Garamond', serif;
+  --sans:'Manrope', system-ui, sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ivory);
+  color:var(--espresso);
+  font-family:var(--sans);
+  font-weight:500;
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+hr{border:0;border-top:1px solid var(--line);margin:0}
+
+/* ---------- Typography helpers ---------- */
+.display{font-family:var(--serif);font-weight:700;letter-spacing:-.01em;line-height:.95}
+.script{font-family:var(--serif-2);font-style:italic;font-weight:600;letter-spacing:.005em}
+.eyebrow{
+  font-family:var(--sans);font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+  font-weight:700;color:var(--mocha);
+}
+.eyebrow .num{color:var(--cognac);margin-right:14px;font-variant-numeric:tabular-nums}
+.section-label{display:flex;align-items:center;gap:18px;margin-bottom:34px}
+.section-label::after{content:"";flex:1;height:1px;background:var(--line);max-width:160px}
+
+/* ---------- Layout ---------- */
+.wrap{max-width:1320px;margin:0 auto;padding:0 56px}
+section{padding:140px 0;position:relative}
+section + section{border-top:1px solid var(--line-soft)}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(246,237,224,.86);
+  backdrop-filter:saturate(120%) blur(14px);
+  -webkit-backdrop-filter:saturate(120%) blur(14px);
+  border-bottom:1px solid var(--line-soft);
+}
+.nav-inner{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:18px 56px;
+}
+.brand{font-family:var(--serif);font-size:22px;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+.brand .amp{color:var(--cognac);font-style:italic;font-family:var(--serif-2);text-transform:none;letter-spacing:0;margin:0 2px;font-weight:600}
+.nav-links{display:flex;gap:36px;justify-self:center}
+.nav-links a{
+  font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--espresso);
+  font-weight:700;position:relative;padding:6px 0;
+}
+.nav-links a:hover{color:var(--cognac)}
+.nav-cta{justify-self:end;display:flex;align-items:center;gap:18px}
+.nav-cta .phone{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--cognac);
+  font-weight:800;
+  animation:phoneBlink 1.8s ease-in-out infinite;
+  transition:color .25s;
+}
+.nav-cta .phone:hover{color:var(--espresso);animation-play-state:paused}
+.nav-cta .phone .phone-ico{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--cognac);color:var(--ivory);
+  display:grid;place-items:center;
+  box-shadow:0 0 0 0 rgba(164,90,38,.55);
+  animation:phoneRing 1.8s ease-in-out infinite;
+}
+.nav-cta .phone .phone-ico svg{
+  width:14px;height:14px;display:block;
+  animation:phoneShake 1.8s ease-in-out infinite;
+  transform-origin:center;
+}
+@keyframes phoneBlink{
+  0%,100%{opacity:1}
+  50%{opacity:.45}
+}
+@keyframes phoneRing{
+  0%,100%{box-shadow:0 0 0 0 rgba(164,90,38,.55);transform:scale(1)}
+  40%{box-shadow:0 0 0 10px rgba(164,90,38,0);transform:scale(1.08)}
+  70%{box-shadow:0 0 0 0 rgba(164,90,38,0);transform:scale(1)}
+}
+@keyframes phoneShake{
+  0%,60%,100%{transform:rotate(0)}
+  10%{transform:rotate(-18deg)}
+  20%{transform:rotate(16deg)}
+  30%{transform:rotate(-12deg)}
+  40%{transform:rotate(10deg)}
+  50%{transform:rotate(-6deg)}
+}
+@media (prefers-reduced-motion: reduce){
+  .nav-cta .phone,
+  .nav-cta .phone .phone-ico,
+  .nav-cta .phone .phone-ico svg{animation:none}
+}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:13px 24px;border-radius:999px;
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:800;
+  transition:all .25s ease;
+  white-space:nowrap;
+}
+.btn-dark{background:var(--espresso);color:var(--ivory)}
+.btn-dark:hover{background:var(--cognac);transform:translateY(-1px)}
+.btn-outline{border:1px solid var(--espresso);color:var(--espresso)}
+.btn-outline:hover{background:var(--espresso);color:var(--ivory)}
+.btn-ghost{color:var(--espresso)}
+.btn-ghost:hover{color:var(--cognac)}
+.btn .arrow{font-size:14px;transition:transform .25s}
+.btn:hover .arrow{transform:translateX(3px)}
+
+/* ---------- Hero ---------- */
+.hero{
+  padding:60px 0 120px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.05fr 1fr;
+  gap:80px;
+  align-items:center;
+}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:14px;
+  font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--mocha);
+  margin-bottom:36px;
+}
+.hero-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--cognac)}
+.hero h1{
+  font-family:var(--serif);
+  font-size:clamp(56px, 9vw, 132px);
+  line-height:.92;
+  letter-spacing:-.02em;
+  margin:0 0 28px;
+  font-weight:800;
+}
+.hero h1 .italic{
+  display:block;font-family:var(--serif-2);font-style:italic;
+  color:var(--cognac);font-size:.62em;letter-spacing:-.01em;line-height:1;
+  margin-top:6px;font-weight:600;
+}
+.hero-lede{
+  max-width:480px;font-size:17px;line-height:1.65;color:var(--mocha);
+  margin:0 0 40px;font-weight:500;
+}
+.hero-actions{display:flex;gap:14px;align-items:center;margin-bottom:60px}
+.hero-meta{
+  display:flex;gap:48px;padding-top:28px;border-top:1px solid var(--line);
+  max-width:520px;
+}
+.hero-meta .item{display:flex;flex-direction:column;gap:4px}
+.hero-meta .num{font-family:var(--serif);font-size:32px;line-height:1;color:var(--espresso);font-weight:700}
+.hero-meta .lbl{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--mocha);font-weight:700}
+
+.hero-visual{position:relative;aspect-ratio:1/1;width:100%;max-width:460px;justify-self:end}
+.hero-img{
+  position:absolute;inset:0;border-radius:4px;overflow:hidden;
+  box-shadow:
+    0 2px 4px rgba(29,19,11,.18),
+    0 8px 16px -4px rgba(29,19,11,.28),
+    0 28px 50px -12px rgba(29,19,11,.45),
+    0 60px 110px -30px rgba(29,19,11,.55),
+    0 100px 160px -50px rgba(164,90,38,.35);
+}
+.hero-img img{width:100%;height:100%;object-fit:cover}
+.hero-frame{
+  position:absolute;inset:-22px -22px 22px 22px;
+  border:1px solid var(--cognac);border-radius:4px;pointer-events:none;
+  z-index:-1;
+}
+.hero-badge{
+  position:absolute;left:-32px;bottom:32px;
+  width:160px;height:160px;border-radius:50%;
+  background:var(--ivory);color:var(--espresso);
+  display:grid;place-items:center;text-align:center;
+  border:1px solid var(--line);
+  box-shadow:0 20px 40px -20px rgba(29,19,11,.3);
+  font-family:var(--serif-2);font-style:italic;
+  animation:spin 28s linear infinite;
+}
+.hero-badge svg{position:absolute;inset:0;width:100%;height:100%}
+.hero-badge .star{position:absolute;color:var(--cognac);font-size:18px;font-style:normal}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-tag{
+  position:absolute;right:-12px;top:40px;
+  background:var(--espresso);color:var(--ivory);
+  padding:14px 22px;border-radius:999px;
+  font-size:10px;letter-spacing:.28em;text-transform:uppercase;
+}
+
+/* Marquee */
+.marquee{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:var(--ivory-2);
+  padding:22px 0;overflow:hidden;
+}
+.marquee-track{
+  display:flex;gap:80px;white-space:nowrap;
+  animation:marquee 38s linear infinite;
+}
+.marquee span{
+  font-family:var(--serif);font-size:22px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;
+}
+.marquee .dot{color:var(--cognac);font-style:italic;font-family:var(--serif-2)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ---------- About ---------- */
+.about-grid{
+  display:grid;grid-template-columns:.95fr 1.05fr;gap:90px;align-items:center;
+}
+.about-imgs{position:relative;aspect-ratio:5/6}
+.about-imgs .big{
+  position:absolute;inset:0 28% 24% 0;border-radius:4px;overflow:hidden;
+}
+.about-imgs .small{
+  position:absolute;inset:32% 0 0 38%;border-radius:4px;overflow:hidden;
+  box-shadow:0 30px 60px -25px rgba(29,19,11,.45);
+  border:6px solid var(--ivory);
+}
+.about-imgs img{width:100%;height:100%;object-fit:cover}
+.about-imgs .stamp{
+  position:absolute;right:-4px;top:-4px;
+  background:var(--cognac);color:var(--ivory);
+  width:120px;height:120px;border-radius:50%;
+  display:grid;place-items:center;text-align:center;
+  font-family:var(--serif-2);font-style:italic;font-size:14px;line-height:1.2;
+  padding:14px;
+}
+.about-imgs .stamp strong{font-family:var(--serif);font-size:26px;font-style:normal;display:block;line-height:1}
+
+.about h2{
+  font-family:var(--serif);font-size:clamp(44px,5vw,72px);line-height:1;margin:0 0 28px;
+  font-weight:700;letter-spacing:-.015em;
+}
+.about h2 em{font-family:var(--serif-2);color:var(--cognac);font-weight:600;font-style:italic}
+.about p{font-size:16.5px;line-height:1.75;color:var(--mocha);margin:0 0 18px;max-width:520px;font-weight:500}
+.about .sig{font-family:var(--serif-2);font-style:italic;font-size:32px;color:var(--espresso);margin-top:32px}
+.about .sig-name{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--mocha);margin-top:2px}
+
+.about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:50px;padding-top:34px;border-top:1px solid var(--line)}
+.about-stats .num{font-family:var(--serif);font-size:46px;line-height:1;color:var(--espresso);font-weight:700}
+.about-stats .lbl{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--mocha);margin-top:8px;font-weight:700}
+
+/* ---------- Services ---------- */
+.services-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:70px}
+.services-head h2{
+  font-family:var(--serif);font-size:clamp(56px,7vw,108px);line-height:.95;margin:0;font-weight:700;letter-spacing:-.02em;
+}
+.services-head h2 em{font-family:var(--serif-2);color:var(--cognac);font-weight:600;font-style:italic}
+.services-head p{color:var(--mocha);max-width:440px;justify-self:end;font-size:15.5px;line-height:1.7;font-weight:500}
+
+.svc-list{display:grid;grid-template-columns:1fr;gap:0}
+.svc{
+  display:grid;grid-template-columns:80px 1.4fr 1fr 140px 140px 50px;
+  gap:32px;align-items:center;
+  padding:32px 8px;border-top:1px solid var(--line);
+  position:relative;transition:padding .3s ease;
+}
+.svc:last-child{border-bottom:1px solid var(--line)}
+.svc-num{font-family:var(--serif);font-size:18px;color:var(--cognac);letter-spacing:.05em;font-weight:700}
+.svc-name{font-family:var(--serif);font-size:30px;line-height:1.05;color:var(--espresso);font-weight:700;letter-spacing:-.01em}
+.svc-desc{font-size:14px;line-height:1.55;color:var(--mocha);font-weight:500}
+.svc-meta{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mocha);font-weight:700}
+.svc-price{font-family:var(--serif);font-size:24px;color:var(--espresso);text-align:right;font-weight:700}
+.svc-price em{font-family:var(--serif-2);font-style:italic;font-size:13px;color:var(--mocha);display:block;letter-spacing:.04em;font-weight:600}
+.svc-arrow{
+  width:44px;height:44px;border-radius:50%;border:1px solid var(--line);
+  display:grid;place-items:center;transition:all .3s;
+  color:var(--espresso);justify-self:end;
+}
+.svc:hover .svc-arrow{background:var(--espresso);color:var(--ivory);border-color:var(--espresso);transform:translateX(4px)}
+.svc-preview{
+  position:absolute;left:50%;top:50%;
+  width:240px;height:300px;border-radius:4px;overflow:hidden;
+  transform:translate(-50%,-50%) scale(.85);
+  opacity:0;pointer-events:none;
+  transition:all .4s cubic-bezier(.2,.7,.2,1);
+  z-index:5;box-shadow:0 30px 80px -20px rgba(29,19,11,.5);
+}
+.svc:hover .svc-preview{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-3deg)}
+.svc-preview img,.svc-preview video{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ---------- Lookbook ---------- */
+.lookbook{background:var(--espresso);color:var(--ivory);padding:160px 0}
+.lookbook .eyebrow{color:var(--gold-soft)}
+.lookbook .eyebrow .num{color:var(--gold)}
+.lookbook .section-label::after{background:rgba(246,237,224,.18)}
+.lookbook h2{
+  font-family:var(--serif);font-size:clamp(54px,7vw,108px);line-height:.95;margin:0 0 24px;color:var(--ivory);font-weight:700;letter-spacing:-.02em;
+}
+.lookbook h2 em{font-family:var(--serif-2);color:var(--gold);font-weight:600;font-style:italic}
+.lookbook-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:70px}
+.lookbook-head p{color:rgba(246,237,224,.7);max-width:440px;justify-self:end;font-size:15.5px;line-height:1.7}
+
+.gallery{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:18px;
+  grid-auto-rows:90px;
+}
+.gallery .tile{
+  position:relative;border-radius:4px;overflow:hidden;
+  transition:transform .5s;
+}
+.gallery .tile img{width:100%;height:100%;object-fit:cover;transition:transform .8s;display:block}
+.gallery .tile:hover img{transform:scale(1.06)}
+.gallery .tile .cap{
+  position:absolute;left:14px;bottom:14px;
+  font-family:var(--serif-2);font-style:italic;font-size:14px;
+  color:var(--ivory);opacity:0;transition:opacity .35s;
+  background:rgba(29,19,11,.55);padding:6px 12px;border-radius:99px;
+  backdrop-filter:blur(6px);
+}
+.gallery .tile:hover .cap{opacity:1}
+
+.t1{grid-column:1/span 4;grid-row:span 5}
+.t2{grid-column:5/span 5;grid-row:span 4}
+.t3{grid-column:10/span 3;grid-row:span 4}
+.t4{grid-column:5/span 3;grid-row:span 5}
+.t5{grid-column:8/span 5;grid-row:span 5}
+.t6{grid-column:1/span 4;grid-row:span 4}
+
+.lookbook-cta{display:flex;justify-content:center;margin-top:56px}
+.lookbook .btn-outline{border-color:var(--gold);color:var(--gold)}
+.lookbook .btn-outline:hover{background:var(--gold);color:var(--espresso)}
+
+/* ---------- Celebrity inspiration ---------- */
+.icons-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:60px}
+.icons-head h2{font-family:var(--serif);font-size:clamp(54px,6.5vw,98px);line-height:.95;margin:0;font-weight:700;letter-spacing:-.02em}
+.icons-head h2 em{font-family:var(--serif-2);color:var(--cognac);font-weight:600;font-style:italic}
+.icons-head p{color:var(--mocha);max-width:440px;justify-self:end;font-size:15.5px;line-height:1.7}
+
+.icons-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.icon-card{position:relative;display:block;overflow:hidden;border-radius:4px;cursor:pointer}
+.icon-card .img{aspect-ratio:3/4;overflow:hidden}
+.icon-card img,.icon-card video{width:100%;height:100%;object-fit:cover;transition:transform .7s;display:block}
+.icon-card:hover img,.icon-card:hover video{transform:scale(1.05)}
+.icon-card .info{padding:18px 4px}
+.icon-card .style{font-family:var(--serif);font-size:22px;line-height:1.1;color:var(--espresso);font-weight:700}
+.icon-card .ref{font-family:var(--serif-2);font-style:italic;color:var(--cognac);font-size:14px;margin-top:4px;font-weight:600}
+.icon-card .tag{
+  position:absolute;left:14px;top:14px;
+  background:rgba(246,237,224,.92);
+  padding:5px 12px;border-radius:99px;
+  font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;
+  color:var(--espresso);
+}
+
+/* ---------- Testimonials ---------- */
+.testimonials{background:var(--ivory-2)}
+.test-head{text-align:center;margin-bottom:70px}
+.test-head h2{font-family:var(--serif);font-size:clamp(54px,6.5vw,96px);line-height:.95;margin:18px 0 0;font-weight:700;letter-spacing:-.02em}
+.test-head h2 em{font-family:var(--serif-2);color:var(--cognac);font-weight:600;font-style:italic}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.test-card{
+  background:var(--ivory);
+  border:1px solid var(--line-soft);
+  border-radius:4px;
+  padding:38px 32px 30px;
+  display:flex;flex-direction:column;
+  position:relative;
+}
+.test-card .qmark{
+  font-family:var(--serif-2);font-style:italic;color:var(--cognac);
+  font-size:80px;line-height:.6;margin-bottom:8px;
+}
+.test-card .quote{
+  font-family:var(--serif-2);font-size:21px;line-height:1.45;color:var(--espresso);
+  margin:0 0 26px;flex:1;font-weight:500;
+}
+.test-card .stars{color:var(--cognac);letter-spacing:.2em;margin-bottom:16px;font-size:13px}
+.test-card .who{display:flex;align-items:center;gap:14px;padding-top:20px;border-top:1px solid var(--line-soft)}
+.test-card .avatar{
+  width:48px;height:48px;border-radius:50%;overflow:hidden;flex-shrink:0;
+  background:var(--sand);
+}
+.test-card .avatar img{width:100%;height:100%;object-fit:cover}
+.test-card .nm{font-family:var(--serif);font-size:18px;line-height:1.1;font-weight:700}
+.test-card .svc-got{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mocha);margin-top:3px}
+
+/* ---------- Booking ---------- */
+.booking{background:var(--espresso);color:var(--ivory);padding:160px 0}
+.booking .eyebrow{color:var(--gold-soft)}
+.booking .eyebrow .num{color:var(--gold)}
+.booking .section-label::after{background:rgba(246,237,224,.18)}
+.booking h2{
+  font-family:var(--serif);font-size:clamp(54px,7vw,108px);line-height:.95;margin:0 0 24px;color:var(--ivory);font-weight:700;letter-spacing:-.02em;
+}
+.booking h2 em{font-family:var(--serif-2);color:var(--gold);font-weight:600;font-style:italic}
+.booking-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:60px}
+.booking-head p{color:rgba(246,237,224,.72);max-width:480px;justify-self:end;font-size:15.5px;line-height:1.7}
+
+.book-stage{
+  background:linear-gradient(180deg, rgba(246,237,224,.04), rgba(246,237,224,.02));
+  border:1px solid rgba(246,237,224,.14);
+  border-radius:6px;
+  padding:48px;
+  display:grid;grid-template-columns:280px 1fr;gap:60px;
+  min-height:560px;
+}
+
+.steps-rail{display:flex;flex-direction:column;gap:6px}
+.step-item{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:14px 0;color:rgba(246,237,224,.5);
+  border-left:1px solid transparent;padding-left:18px;
+  transition:all .3s;
+}
+.step-item.done{color:var(--gold-soft)}
+.step-item.active{color:var(--ivory);border-left-color:var(--gold)}
+.step-item .stp-num{
+  font-family:var(--serif);font-size:14px;width:24px;flex-shrink:0;
+  letter-spacing:.1em;
+}
+.step-item .stp-lbl{font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:500;line-height:1.4}
+.step-item .stp-sub{font-family:var(--serif-2);font-style:italic;font-size:13px;color:var(--gold-soft);margin-top:3px}
+
+.book-pane{display:flex;flex-direction:column}
+.book-step{display:none;animation:fadeIn .35s ease}
+.book-step.active{display:flex;flex-direction:column;flex:1}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.book-step h3{
+  font-family:var(--serif);font-size:36px;line-height:1.05;font-weight:700;margin:0 0 8px;color:var(--ivory);letter-spacing:-.01em;
+}
+.book-step h3 em{font-family:var(--serif-2);color:var(--gold);font-weight:600;font-style:italic}
+.book-step .help{color:rgba(246,237,224,.6);font-size:14px;margin:0 0 30px;max-width:520px;line-height:1.6}
+
+/* Service picker */
+.svc-pick{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.svc-pick label{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 22px;border:1px solid rgba(246,237,224,.18);
+  border-radius:4px;cursor:pointer;transition:all .25s;
+  background:rgba(246,237,224,.02);
+}
+.svc-pick label:hover{border-color:var(--gold-soft);background:rgba(246,237,224,.05)}
+.svc-pick input{position:absolute;opacity:0;pointer-events:none}
+.svc-pick input:checked + .svc-pick-inner,
+.svc-pick label:has(input:checked){
+  border-color:var(--gold);background:rgba(201,161,106,.1);
+}
+.svc-pick .pk-nm{font-family:var(--serif);font-size:20px;line-height:1.1}
+.svc-pick .pk-sub{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);margin-top:2px}
+.svc-pick .pk-price{font-family:var(--serif);font-size:18px;color:var(--gold)}
+
+/* Calendar */
+.calendar-row{display:grid;grid-template-columns:1.2fr 1fr;gap:36px}
+.cal{background:rgba(246,237,224,.03);padding:24px;border-radius:4px;border:1px solid rgba(246,237,224,.1)}
+.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.cal-head .mo{font-family:var(--serif);font-size:22px}
+.cal-nav{display:flex;gap:8px}
+.cal-nav button{
+  width:34px;height:34px;border-radius:50%;border:1px solid rgba(246,237,224,.2);
+  color:var(--ivory);transition:all .2s;
+}
+.cal-nav button:hover{background:var(--gold);color:var(--espresso);border-color:var(--gold)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal-grid .dow{font-size:10px;letter-spacing:.2em;color:rgba(246,237,224,.5);padding:8px 0;text-transform:uppercase}
+.cal-day{
+  aspect-ratio:1;display:grid;place-items:center;
+  font-size:14px;border-radius:50%;cursor:pointer;
+  transition:all .2s;color:rgba(246,237,224,.85);
+  position:relative;
+}
+.cal-day:hover:not(.muted):not(.disabled){background:rgba(246,237,224,.08)}
+.cal-day.muted{color:rgba(246,237,224,.2);cursor:default}
+.cal-day.disabled{color:rgba(246,237,224,.25);cursor:not-allowed;text-decoration:line-through}
+.cal-day.active{background:var(--gold);color:var(--espresso);font-weight:600}
+.cal-day.today::after{content:"";position:absolute;bottom:6px;width:4px;height:4px;border-radius:50%;background:var(--cognac)}
+
+.times{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;padding-right:6px}
+.times h4{font-family:var(--serif);font-size:18px;margin:0 0 6px;color:var(--gold-soft)}
+.time-pill{
+  padding:11px 16px;border:1px solid rgba(246,237,224,.18);border-radius:99px;
+  font-size:13px;letter-spacing:.06em;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:all .2s;background:rgba(246,237,224,.02);
+}
+.time-pill:hover{border-color:var(--gold-soft)}
+.time-pill.active{background:var(--gold);color:var(--espresso);border-color:var(--gold);font-weight:600}
+.time-pill .dur{font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.7}
+
+/* Details */
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:span 2}
+.field label{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-soft);font-weight:500}
+.field input,.field textarea,.field select{
+  background:transparent;border:0;border-bottom:1px solid rgba(246,237,224,.25);
+  padding:10px 0;font:inherit;color:var(--ivory);font-size:15px;
+  outline:none;transition:border-color .2s;
+}
+.field input:focus,.field textarea:focus,.field select:focus{border-bottom-color:var(--gold)}
+.field textarea{resize:vertical;min-height:80px}
+.field select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%23dcbb8a' d='M6 8L0 0h12z'/></svg>");background-repeat:no-repeat;background-position:right 4px center}
+.field select option{background:var(--espresso);color:var(--ivory)}
+.checkbox{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:rgba(246,237,224,.75);line-height:1.5;cursor:pointer}
+.checkbox input{margin-top:3px;accent-color:var(--gold)}
+
+/* Deposit summary */
+.deposit-card{
+  background:linear-gradient(140deg, rgba(201,161,106,.12), rgba(164,90,38,.05));
+  border:1px solid rgba(201,161,106,.4);
+  border-radius:6px;padding:36px;
+}
+.deposit-row{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(246,237,224,.1);font-size:14px}
+.deposit-row:last-child{border:0}
+.deposit-row .lbl{color:rgba(246,237,224,.7);letter-spacing:.08em}
+.deposit-row .val{font-family:var(--serif);font-size:18px;color:var(--ivory)}
+.deposit-row.total .val{font-size:26px;color:var(--gold)}
+.policy{
+  margin-top:24px;padding:20px;background:rgba(246,237,224,.04);border-left:2px solid var(--cognac);
+  font-size:13px;color:rgba(246,237,224,.78);line-height:1.65;border-radius:0 4px 4px 0;
+}
+.policy strong{color:var(--gold-soft);letter-spacing:.04em}
+
+/* Confirmation */
+.confirm-ok{text-align:center;padding:30px 0}
+.confirm-ok .check{
+  width:80px;height:80px;border-radius:50%;background:var(--gold);
+  display:grid;place-items:center;margin:0 auto 24px;color:var(--espresso);font-size:36px;
+}
+.confirm-ok h3{font-size:44px}
+.confirm-ok p{color:rgba(246,237,224,.7);max-width:480px;margin:0 auto 28px}
+.confirm-details{display:inline-grid;grid-template-columns:auto auto;gap:8px 28px;text-align:left;background:rgba(246,237,224,.04);padding:24px 32px;border-radius:4px;margin-top:12px}
+.confirm-details .lbl{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-soft);align-self:center}
+.confirm-details .val{font-family:var(--serif);font-size:18px}
+
+.book-actions{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:30px;margin-top:auto;border-top:1px solid rgba(246,237,224,.12);
+}
+.book-actions .progress{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:rgba(246,237,224,.55)}
+.book-actions .actions-r{display:flex;gap:12px}
+.btn-light{background:var(--gold);color:var(--espresso)}
+.btn-light:hover{background:var(--ivory);transform:translateY(-1px)}
+.btn-ghost-light{color:var(--ivory)}
+.btn-ghost-light:hover{color:var(--gold)}
+.btn[disabled]{opacity:.35;cursor:not-allowed;pointer-events:none}
+
+/* ---------- Visit ---------- */
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.visit h2{font-family:var(--serif);font-size:clamp(54px,6.5vw,96px);line-height:.95;margin:0 0 30px;font-weight:700;letter-spacing:-.02em}
+.visit h2 em{font-family:var(--serif-2);color:var(--cognac);font-weight:600;font-style:italic}
+.visit-info{display:grid;grid-template-columns:1fr 1fr;gap:34px 36px;margin-top:42px}
+.visit-info .blk h4{font-family:var(--serif-2);font-style:italic;font-size:22px;color:var(--cognac);margin:0 0 10px;font-weight:600}
+.visit-info .blk p{margin:0;color:var(--mocha);font-size:15px;line-height:1.7}
+.visit-info .blk p strong{color:var(--espresso);font-weight:600}
+.visit-info .blk a:hover{color:var(--cognac)}
+.hours-list{list-style:none;padding:0;margin:0}
+.hours-list li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--line-soft);font-size:14.5px;color:var(--mocha)}
+.hours-list li:last-child{border:0}
+.hours-list .day{letter-spacing:.06em}
+.hours-list .closed{font-style:italic;color:var(--ash)}
+
+.map-card{
+  position:relative;aspect-ratio:5/6;border-radius:4px;overflow:hidden;
+  background:linear-gradient(135deg, var(--cream), var(--sand));
+  border:1px solid var(--line);
+  box-shadow:0 30px 70px -30px rgba(29,19,11,.35);
+}
+.map-card svg{position:absolute;inset:0;width:100%;height:100%}
+.map-pin{
+  position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);
+  display:grid;place-items:center;
+}
+.map-pin .pulse{
+  position:absolute;width:60px;height:60px;border-radius:50%;
+  background:var(--cognac);opacity:.3;animation:pulse 2s ease-out infinite;
+}
+@keyframes pulse{
+  0%{transform:scale(.5);opacity:.6}
+  100%{transform:scale(2);opacity:0}
+}
+.map-pin .dot{
+  width:24px;height:24px;border-radius:50%;background:var(--cognac);
+  border:4px solid var(--ivory);box-shadow:0 4px 16px rgba(29,19,11,.4);
+  position:relative;z-index:2;
+}
+.map-card .addr-chip{
+  position:absolute;left:24px;bottom:24px;right:24px;
+  background:rgba(246,237,224,.94);
+  padding:18px 22px;border-radius:4px;
+  display:flex;justify-content:space-between;align-items:center;gap:18px;
+  backdrop-filter:blur(8px);
+}
+.map-card .addr-chip h5{margin:0;font-family:var(--serif);font-size:18px}
+.map-card .addr-chip p{margin:2px 0 0;font-size:12px;color:var(--mocha);letter-spacing:.04em}
+.map-card .addr-chip .pill{
+  background:var(--espresso);color:var(--ivory);
+  padding:9px 16px;border-radius:99px;
+  font-size:10px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;
+}
+
+/* ---------- Scroll Reveal Animations ---------- */
+@keyframes reveal-up{
+  from{opacity:0;transform:translateY(48px)}
+  to{opacity:1;transform:none}
+}
+@keyframes reveal-tilt{
+  from{opacity:0;transform:translateY(60px) rotate(-3deg) scale(.94)}
+  to{opacity:1;transform:none}
+}
+@keyframes reveal-fade{
+  from{opacity:0}
+  to{opacity:1}
+}
+@keyframes word-rise{
+  from{opacity:0;transform:translateY(.5em) rotate(2deg)}
+  to{opacity:1;transform:none}
+}
+@keyframes underline-grow{
+  from{transform:scaleX(0)}
+  to{transform:scaleX(1)}
+}
+@keyframes float-y{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+
+/* Icons section reveal */
+#icons .icons-head h2,
+#icons .icons-head p,
+#icons .section-label{
+  opacity:0;
+}
+#icons.in-view .section-label{
+  animation:reveal-up .8s cubic-bezier(.2,.7,.2,1) .05s forwards;
+}
+#icons.in-view .icons-head h2{
+  animation:reveal-up .9s cubic-bezier(.2,.7,.2,1) .15s forwards;
+}
+#icons.in-view .icons-head p{
+  animation:reveal-up .9s cubic-bezier(.2,.7,.2,1) .35s forwards;
+}
+#icons .icon-card{
+  opacity:0;transform:translateY(60px) scale(.96);
+}
+#icons.in-view .icon-card{
+  animation:reveal-up 1s cubic-bezier(.2,.7,.2,1) forwards;
+}
+#icons.in-view .icon-card:nth-child(1){animation-delay:.35s}
+#icons.in-view .icon-card:nth-child(2){animation-delay:.45s}
+#icons.in-view .icon-card:nth-child(3){animation-delay:.55s}
+#icons.in-view .icon-card:nth-child(4){animation-delay:.65s}
+#icons.in-view .icon-card:nth-child(5){animation-delay:.55s}
+#icons.in-view .icon-card:nth-child(6){animation-delay:.65s}
+#icons.in-view .icon-card:nth-child(7){animation-delay:.75s}
+#icons.in-view .icon-card:nth-child(8){animation-delay:.85s}
+.icon-card .tag{transition:transform .3s ease, background .2s}
+.icon-card:hover .tag{transform:translateY(-2px) scale(1.05);background:var(--cognac);color:var(--ivory)}
+.icon-card .style{transition:color .3s}
+.icon-card:hover .style{color:var(--cognac)}
+
+/* Testimonials section reveal */
+.testimonials .test-head .eyebrow,
+.testimonials .test-head h2{opacity:0}
+.testimonials.in-view .test-head .eyebrow{
+  animation:reveal-up .8s cubic-bezier(.2,.7,.2,1) .05s forwards;
+}
+.testimonials.in-view .test-head h2{
+  animation:reveal-up 1s cubic-bezier(.2,.7,.2,1) .2s forwards;
+}
+.testimonials .test-head h2 em{
+  display:inline-block;position:relative;
+}
+.testimonials .test-head h2 em::after{
+  content:"";position:absolute;left:0;right:0;bottom:-.04em;height:.06em;
+  background:var(--cognac);border-radius:2px;
+  transform:scaleX(0);transform-origin:left;
+}
+.testimonials.in-view .test-head h2 em::after{
+  animation:underline-grow .9s cubic-bezier(.2,.7,.2,1) .9s forwards;
+}
+
+.test-card{
+  opacity:0;transform:translateY(60px);
+  transition:box-shadow .35s ease, transform .35s ease;
+}
+.testimonials.in-view .test-card{
+  animation:reveal-up 1s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.testimonials.in-view .test-card:nth-child(1){animation-delay:.45s}
+.testimonials.in-view .test-card:nth-child(2){animation-delay:.6s}
+.testimonials.in-view .test-card:nth-child(3){animation-delay:.75s}
+
+.test-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 30px 60px -20px rgba(29,19,11,.25), 0 0 0 1px rgba(201,161,106,.3);
+}
+.test-card .qmark{
+  display:inline-block;
+  animation:float-y 4s ease-in-out infinite;
+}
+.test-card .stars{
+  letter-spacing:.4em;
+  transition:letter-spacing .35s ease;
+}
+.testimonials.in-view .test-card:hover .stars{letter-spacing:.55em}
+
+.test-card .avatar{
+  transition:transform .4s ease;
+}
+.test-card:hover .avatar{
+  transform:scale(1.08) rotate(-3deg);
+}
+
+@media (prefers-reduced-motion: reduce){
+  #icons .icons-head h2, #icons .icons-head p, #icons .section-label,
+  #icons .icon-card, .testimonials .test-head .eyebrow,
+  .testimonials .test-head h2, .test-card{
+    opacity:1 !important;transform:none !important;animation:none !important;
+  }
+  .test-card .qmark{animation:none}
+}
+
+/* ---------- Footer ---------- */
+footer{background:var(--espresso-2);color:rgba(246,237,224,.7);padding:80px 0 36px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:50px;margin-bottom:60px}
+.foot-brand{font-family:var(--serif);font-size:42px;letter-spacing:-.005em;color:var(--ivory);line-height:1;font-weight:800}
+.foot-brand .amp{color:var(--gold);font-style:italic;font-family:var(--serif-2)}
+.foot-brand + p{margin-top:18px;max-width:300px;font-size:14px;line-height:1.65}
+.foot-col h5{font-family:var(--serif-2);font-style:italic;font-size:20px;color:var(--gold);margin:0 0 18px;font-weight:600}
+.foot-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;font-size:14px}
+.foot-col a:hover{color:var(--gold-soft)}
+.foot-base{
+  padding-top:30px;border-top:1px solid rgba(246,237,224,.12);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(246,237,224,.5);
+}
+.foot-base .ig{display:flex;gap:18px}
+.foot-base .ig a:hover{color:var(--gold)}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px){
+  .wrap{padding:0 36px}
+  .nav-inner{padding:16px 36px}
+  .nav-links{display:none}
+  .hero-grid,.about-grid,.icons-grid,.visit-grid,.book-stage{grid-template-columns:1fr;gap:50px}
+  .icons-grid{grid-template-columns:repeat(2,1fr)}
+  .lookbook-head,.icons-head,.services-head,.booking-head{grid-template-columns:1fr;gap:24px}
+  .test-grid,.fields,.svc-pick{grid-template-columns:1fr}
+  .calendar-row{grid-template-columns:1fr}
+  .svc{grid-template-columns:60px 1fr 100px;gap:16px}
+  .svc-desc,.svc-meta,.svc-arrow{display:none}
+  .gallery{grid-template-columns:repeat(6,1fr);grid-auto-rows:80px}
+  .t1,.t6{grid-column:span 3;grid-row:span 4}
+  .t2,.t5{grid-column:span 3;grid-row:span 4}
+  .t3,.t4{grid-column:span 3;grid-row:span 3}
+  section{padding:90px 0}
+  .hero h1{font-size:64px}
+  .hero-badge{display:none}
+  .book-stage{padding:28px}
+  .steps-rail{flex-direction:row;overflow-x:auto;gap:18px}
+  .step-item{border-left:0;border-bottom:1px solid transparent;padding:0 0 10px}
+  .step-item.active{border-bottom-color:var(--gold)}
+  .visit-info{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:36px}
+}
+</style>
+</head>
+<body data-screen-label="Elidine Home">
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">Elidine</div>
+    <div class="nav-links">
+      <a href="#about">The Atelier</a>
+      <a href="#services">Services</a>
+      <a href="#lookbook">Lookbook</a>
+      <a href="#icons">Icons</a>
+      <a href="blog/index.html">Journal</a>
+      <a href="#visit">Visit</a>
+    </div>
+    <div class="nav-cta">
+      <a href="tel:+19292029714" class="phone">
+        <span class="phone-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </span>
+        <span class="phone-num">929 · 202 · 9714</span>
+      </a>
+      <a href="tel:+19292029714" class="btn btn-dark">Call to Book <span class="arrow">→</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-eyebrow"><span class="dot"></span> Couture Braiding Atelier · Garland, Texas</div>
+        <h1>
+          Hands<br/>
+          that braid<br/>
+          <span class="italic">like silk &amp; gold.</span>
+        </h1>
+        <p class="hero-lede">
+          Elidine is a private, by-appointment studio crafting protective styles
+          with the patience of fine couture — gentle on the scalp, tailored to your crown,
+          and finished with the kind of detail you only get when an artisan loves the work.
+        </p>
+        <div class="hero-actions">
+          <a href="tel:+19292029714" class="btn btn-dark">Call to Book <span class="arrow">→</span></a>
+          <a href="#lookbook" class="btn btn-ghost">The Lookbook <span class="arrow">→</span></a>
+        </div>
+        <div class="hero-meta">
+          <div class="item"><span class="num">12<em style="font-family:var(--serif-2);font-style:italic;font-size:18px;color:var(--cognac)">+</em></span><span class="lbl">Years of Craft</span></div>
+          <div class="item"><span class="num">2.4k</span><span class="lbl">Crowns Braided</span></div>
+          <div class="item"><span class="num">4.98<em style="font-family:var(--serif-2);font-style:italic;font-size:18px;color:var(--cognac)">★</em></span><span class="lbl">Average Rating</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-frame"></div>
+        <div class="hero-img">
+          <video autoplay muted loop playsinline preload="auto"
+                 style="width:100%;height:100%;object-fit:cover;display:block;background:linear-gradient(135deg,#a45a26,#1d130b)">
+            <source src="assets/hero.mp4" type="video/mp4"/>
+          </video>
+        </div>
+        <div class="hero-tag">Est. 2013 · Texas</div>
+        <div class="hero-badge">
+          <svg viewBox="0 0 200 200">
+            <defs>
+              <path id="circle" d="M 100,100 m -78,0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0"/>
+            </defs>
+            <text font-family="Playfair Display, serif" font-weight="700" font-size="14" letter-spacing="5" fill="#1d130b">
+              <textPath xlink:href="#circle" startOffset="0">
+                BOOK NOW · ELIDINE · BOOK NOW · ELIDINE ·
+              </textPath>
+            </text>
+          </svg>
+          <span class="star">✦</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Knotless Braids <span class="dot">·</span></span>
+    <span>Goddess Locs <span class="dot">·</span></span>
+    <span>Fulani Tribal <span class="dot">·</span></span>
+    <span>Stitch Cornrows <span class="dot">·</span></span>
+    <span>Passion Twists <span class="dot">·</span></span>
+    <span>Bridal Crown <span class="dot">·</span></span>
+    <span>Faux Locs <span class="dot">·</span></span>
+    <span>Box Braids <span class="dot">·</span></span>
+    <!-- duplicate for seamless loop -->
+    <span>Knotless Braids <span class="dot">·</span></span>
+    <span>Goddess Locs <span class="dot">·</span></span>
+    <span>Fulani Tribal <span class="dot">·</span></span>
+    <span>Stitch Cornrows <span class="dot">·</span></span>
+    <span>Passion Twists <span class="dot">·</span></span>
+    <span>Bridal Crown <span class="dot">·</span></span>
+    <span>Faux Locs <span class="dot">·</span></span>
+    <span>Box Braids <span class="dot">·</span></span>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" data-screen-label="About">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-imgs">
+        <div class="big">
+          <video src="assets/atelier-bg.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
+        </div>
+        <div class="small">
+          <img alt="Elidine braiding a client at the Elidine atelier" src="assets/atelier-braiding.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#c9a16a,#5b3f29)'; this.style.display='none'"/>
+        </div>
+        <div class="stamp">
+          <div><strong>12</strong> years<br/><em>of mastery</em></div>
+        </div>
+      </div>
+      <div class="about">
+        <div class="section-label">
+          <span class="eyebrow"><span class="num">01</span>The Atelier</span>
+        </div>
+        <h2>An <em>artisan's</em> approach to the African crown.</h2>
+        <p>
+          Elidine was founded by <strong style="color:var(--espresso);font-weight:700">Elidine</strong> —
+          a true American-dream story. A minority woman-owned business, bootstrapped from
+          a dorm room into a Texas atelier, one chair at a time.
+        </p>
+        <p>
+          Elidine arrived in the U.S. as a design student — originally chasing
+          a career in <em style="font-family:var(--serif-2);color:var(--cognac);font-style:italic;font-weight:600">interior
+          design</em>. She braided her classmates' hair after class to pay tuition.
+          Word traveled. The dorm became a salon. The salon became a waiting list.
+          The waiting list became the kind of little black book celebrities and stylists
+          quietly pass around when they want a crown that photographs like couture.
+        </p>
+        <p>
+          Today, every appointment is treated like a fitting at a fashion house.
+          One client at a time. Clean parts. Scalp-first technique. Hair pre-stretched,
+          products laid out, a candle lit, and tea on the side. We don't rush the crown.
+        </p>
+        <p>
+          Whether you're walking into a wedding, a board meeting, a stadium, or your own
+          front door — you'll leave with a style that respects your hair and looks like
+          you just stepped off the cover.
+        </p>
+        <div class="sig">— Elidine</div>
+        <div class="sig-name">Founder &amp; Lead Stylist</div>
+
+        <div class="about-stats">
+          <div><div class="num">100%</div><div class="lbl">Scalp-Safe Tension</div></div>
+          <div><div class="num">1:1</div><div class="lbl">Client at a Time</div></div>
+          <div><div class="num">6–8wk</div><div class="lbl">Average Style Life</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services" data-screen-label="Services">
+  <div class="wrap">
+    <div class="section-label">
+      <span class="eyebrow"><span class="num">02</span>The Service Menu</span>
+    </div>
+    <div class="services-head">
+      <h2>Signature <em>styles,</em><br/>tailored to your crown.</h2>
+      <p>
+        Prices below are starting points for medium length and average density.
+        Final quote shared at consultation — we never surprise you at the chair.
+        A <strong style="color:var(--espresso)">$50 non-refundable deposit</strong>
+        secures your appointment and is applied to the service fee.
+      </p>
+    </div>
+
+    <div class="svc-list">
+
+      <div class="svc">
+        <div class="svc-num">/ 01</div>
+        <div class="svc-name">Knotless Braids</div>
+        <div class="svc-desc">Our signature. Featherweight feed-in roots, body-length finish, zero tension on the edges.</div>
+        <div class="svc-meta">5 – 7 hrs</div>
+        <div class="svc-price">$220<em>starting</em></div>
+        <div class="svc-arrow">→</div>
+        <div class="svc-preview"><img src="assets/knotless-braids.jpeg" alt="Knotless braids — back view detail" onerror="this.parentElement.style.background='linear-gradient(135deg,#a45a26,#1d130b)';this.style.display='none'"/></div>
+      </div>
+
+      <div class="svc">
+        <div class="svc-num">/ 02</div>
+        <div class="svc-name">Box Braids</div>
+        <div class="svc-desc">Classic, sculptural, endlessly versatile. Available small, medium, jumbo, and Pop Smoke.</div>
+        <div class="svc-meta">5 – 7 hrs</div>
+        <div class="svc-price">$180<em>starting</em></div>
+        <div class="svc-arrow">→</div>
+        <div class="svc-preview"><img src="assets/box-braids.jpg" alt="Box braids — side profile" onerror="this.parentElement.style.background='linear-gradient(135deg,#8a4a1d,#1d130b)';this.style.display='none'"/></div>
+      </div>
+
+      <div class="svc">
+        <div class="svc-num">/ 03</div>
+        <div class="svc-name">Goddess Locs</div>
+        <div class="svc-desc">Bohemian, river-curl ends. Soft to the touch and unbelievably photogenic in low light.</div>
+        <div class="svc-meta">6 – 8 hrs</div>
+        <div class="svc-price">$260<em>starting</em></div>
+        <div class="svc-arrow">→</div>
+        <div class="svc-preview"><img src="assets/goddess-locs.png" alt="Goddess locs with curly river ends" onerror="this.parentElement.style.background='linear-gradient(135deg,#c9a16a,#5b3f29)';this.style.display='none'"/></div>
+      </div>
+
+      <div class="svc">
+        <div class="svc-num">/ 04</div>
+        <div class="svc-name">Fulani · Tribal Braids</div>
+        <div class="svc-desc">Heritage parts woven with cowrie, gold cuffs, and beads — styled to the bone structure.</div>
+        <div class="svc-meta">4 – 6 hrs</div>
+        <div class="svc-price">$200<em>starting</em></div>
+        <div class="svc-arrow">→</div>
+        <div class="svc-preview"><img src="assets/fulani-tribal.png" alt="Fulani tribal braids with cowrie and gold cuffs" onerror="this.parentElement.style.background='linear-gradient(135deg,#a45a26,#1d130b)';this.style.display='none'"/></div>
+      </div>
+
+      <div class="svc">
+        <div class="svc-num">/ 05</div>
+        <div class="svc-name">Stitch Cornrows</div>
+        <div class="svc-desc">Architectural rows, mirror-clean parts. Worn solo or as a foundation for sew-ins.</div>
+        <div class="svc-meta">2 – 4 hrs</div>
+        <div class="svc-price">$120<em>starting</em></div>
+        <div class="svc-arrow">→</div>
+        <div class="svc-preview"><img src="assets/stitch-cornrows.png" alt="Stitch cornrows with bun finish" onerror="this.parentElement.style.background='linear-gradient(135deg,#8a4a1d,#1d130b)';this.style.display='none'"/></div>
+      </div>
+
+      <div class="svc">
+        <div class="svc-num">/ 06</div>
+        <div class="svc-name">Classic Cornrows</div>
+        <div class="svc-desc">Straight-backs, swirl patterns, or freestyle geometry — tight enough to last, gentle enough to sleep in.</div>
+        <div class="svc-meta">1 – 3 hrs</div>
+        <div class="svc-price">$80<em>starting</em></div>
+        <div class="svc-arrow">→</div>
+        <div class="svc-preview"><img src="assets/classic-cornrows.png" alt="Classic straight-back cornrows" onerror="this.parentElement.style.background='linear-gradient(135deg,#c9a16a,#5b3f29)';this.style.display='none'"/></div>
+      </div>
+
+      <div class="svc">
+        <div class="svc-num">/ 07</div>
+        <div class="svc-name">Passion · Senegalese Twists</div>
+        <div class="svc-desc">Curly passion or sleek Senegalese. Lightweight on the scalp, heavy on the compliments.</div>
+        <div class="svc-meta">4 – 6 hrs</div>
+        <div class="svc-price">$200<em>starting</em></div>
+        <div class="svc-arrow">→</div>
+        <div class="svc-preview"><img src="assets/passion-senegalese.png" alt="Passion Senegalese twists with gold cuffs" onerror="this.parentElement.style.background='linear-gradient(135deg,#a45a26,#1d130b)';this.style.display='none'"/></div>
+      </div>
+
+      <div class="svc">
+        <div class="svc-num">/ 08</div>
+        <div class="svc-name">Faux Locs</div>
+        <div class="svc-desc">Soft locs, butterfly, or distressed — finished by hand for a lived-in, never-stiff drape.</div>
+        <div class="svc-meta">6 – 8 hrs</div>
+        <div class="svc-price">$260<em>starting</em></div>
+        <div class="svc-arrow">→</div>
+        <div class="svc-preview" style="background:linear-gradient(135deg,#8a4a1d,#1d130b)"><video src="assets/faux-locs.mp4" autoplay muted loop playsinline preload="metadata"></video></div>
+      </div>
+
+      <div class="svc">
+        <div class="svc-num">/ 09</div>
+        <div class="svc-name">Bridal Crown</div>
+        <div class="svc-desc">By consultation. Custom updo, jewelry placement, plus a trial run two weeks before the day.</div>
+        <div class="svc-meta">by consultation</div>
+        <div class="svc-price">$350<em>starting</em></div>
+        <div class="svc-arrow">→</div>
+        <div class="svc-preview"><img src="assets/bridal-crown.png" alt="Bridal updo crown with crystal earrings" onerror="this.parentElement.style.background='linear-gradient(135deg,#c9a16a,#5b3f29)';this.style.display='none'"/></div>
+      </div>
+
+      <div class="svc">
+        <div class="svc-num">/ 10</div>
+        <div class="svc-name">Little Crowns (Children)</div>
+        <div class="svc-desc">Gentle, patient styling for ages 4 – 12. Snacks, screens, and zero scalp tears.</div>
+        <div class="svc-meta">1 – 3 hrs</div>
+        <div class="svc-price">$80<em>starting</em></div>
+        <div class="svc-arrow">→</div>
+        <div class="svc-preview"><img src="assets/little-crowns.png" alt="Little girl with pearl-adorned braided updo" onerror="this.parentElement.style.background='linear-gradient(135deg,#a45a26,#1d130b)';this.style.display='none'"/></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOOKBOOK ============ -->
+<section id="lookbook" class="lookbook" data-screen-label="Lookbook">
+  <div class="wrap">
+    <div class="section-label">
+      <span class="eyebrow"><span class="num">03</span>The Lookbook</span>
+    </div>
+    <div class="lookbook-head">
+      <h2>Recent work,<br/>straight from <em>the chair.</em></h2>
+      <p>
+        A rolling archive of crowns we've finished this season. Tap any to see the full
+        story — style, length, jewelry, and the song that was playing when we wrapped.
+      </p>
+    </div>
+
+    <div class="gallery">
+      <div class="tile t1"><img alt="Fulani braids with cowrie shells" src="assets/look-1.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#a45a26,#1d130b)';this.style.display='none'"/><div class="cap">Fulani · Cowrie crown</div></div>
+      <div class="tile t2"><img alt="Sculpted braided updo with diamond drop earrings" src="assets/look-2.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#8a4a1d,#1d130b)';this.style.display='none'"/><div class="cap">Bridal · Sculpted updo</div></div>
+      <div class="tile t3"><img alt="Stylist braiding a client in the atelier" src="assets/look-3.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#c9a16a,#5b3f29)';this.style.display='none'"/><div class="cap">Atelier · In the chair</div></div>
+      <div class="tile t4"><img alt="Burgundy ombre braids with cowrie accents" src="assets/look-4.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#a45a26,#1d130b)';this.style.display='none'"/><div class="cap">Knotless · Burgundy ombré</div></div>
+      <div class="tile t5"><img alt="Cinnamon curls with red satin dress" src="assets/look-5.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#8a4a1d,#1d130b)';this.style.display='none'"/><div class="cap">Goddess · Cinnamon curl</div></div>
+      <div class="tile t6"><img alt="Stitch cornrows fading into long box braids" src="assets/look-6.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#c9a16a,#5b3f29)';this.style.display='none'"/><div class="cap">Stitch · Lemonade rows</div></div>
+    </div>
+
+    <div class="lookbook-cta">
+      <a class="btn btn-outline" href="https://instagram.com" target="_blank" rel="noreferrer">See the full archive on Instagram <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ICONS ============ -->
+<section id="icons" data-screen-label="Icons">
+  <div class="wrap">
+    <div class="section-label">
+      <span class="eyebrow"><span class="num">04</span>Iconic Inspirations</span>
+    </div>
+    <div class="icons-head">
+      <h2>Wear it like the <em>icons.</em></h2>
+      <p>
+        Pull a reference from your favorite red carpet, stadium set, or magazine cover —
+        we'll reinterpret it for your face shape, hair density, and lifestyle.
+      </p>
+    </div>
+
+    <div class="icons-grid">
+      <div class="icon-card">
+        <div class="img">
+          <img alt="Sleek long box braids in luxe salon lighting" src="assets/icon-2.jpeg" onerror="this.parentElement.style.background='linear-gradient(135deg,#a45a26,#1d130b)';this.style.display='none'"/>
+        </div>
+        <span class="tag">Stadium</span>
+        <div class="info">
+          <div class="style">The Renaissance Crown</div>
+          <div class="ref">Sleek box braids · mid part</div>
+        </div>
+      </div>
+      <div class="icon-card">
+        <div class="img">
+          <img alt="New York Fashion Week red carpet braids" src="assets/icon-4.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#8a4a1d,#1d130b)';this.style.display='none'"/>
+        </div>
+        <span class="tag">Red Carpet</span>
+        <div class="info">
+          <div class="style">NYFW</div>
+          <div class="ref">Floor-length jumbo · off-shoulder</div>
+        </div>
+      </div>
+      <div class="icon-card">
+        <div class="img">
+          <img alt="Tribal cornrow swirl pattern with gold beads" src="assets/icon-1.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#c9a16a,#5b3f29)';this.style.display='none'"/>
+        </div>
+        <span class="tag">Heritage</span>
+        <div class="info">
+          <div class="style">Nala in Lagos</div>
+          <div class="ref">Sculpted cornrow swirl · gold beads</div>
+        </div>
+      </div>
+      <div class="icon-card">
+        <div class="img">
+          <img alt="Editorial sleek long box braids under vanity lighting" src="assets/icon-editorial.jpg" onerror="this.parentElement.style.background='linear-gradient(135deg,#a45a26,#1d130b)';this.style.display='none'"/>
+        </div>
+        <span class="tag">Editorial</span>
+        <div class="info">
+          <div class="style">Cover Story</div>
+          <div class="ref">Vanity sleek · mid part</div>
+        </div>
+      </div>
+      <div class="icon-card">
+        <div class="img">
+          <img alt="Bridal halo crown braid with veil" src="assets/icon-5.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#8a4a1d,#1d130b)';this.style.display='none'"/>
+        </div>
+        <span class="tag">Bridal</span>
+        <div class="info">
+          <div class="style">The Vow</div>
+          <div class="ref">Halo crown braid · cathedral veil</div>
+        </div>
+      </div>
+      <div class="icon-card">
+        <div class="img">
+          <img alt="Golden-hour knotless braids with wavy ends" src="assets/icon-street.jpg" onerror="this.parentElement.style.background='linear-gradient(135deg,#c9a16a,#5b3f29)';this.style.display='none'"/>
+        </div>
+        <span class="tag">Street</span>
+        <div class="info">
+          <div class="style">Sunday in Houston</div>
+          <div class="ref">Golden hour · wavy ends</div>
+        </div>
+      </div>
+      <div class="icon-card">
+        <div class="img">
+          <img alt="Sculpted updo with diamond drop earrings" src="assets/icon-6.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#a45a26,#1d130b)';this.style.display='none'"/>
+        </div>
+        <span class="tag">Gala</span>
+        <div class="info">
+          <div class="style">Midnight Bloom</div>
+          <div class="ref">Sculpted updo · diamond drops</div>
+        </div>
+      </div>
+      <div class="icon-card">
+        <div class="img">
+          <img alt="Fulani tribal braids with statement necklace" src="assets/icon-3.png" onerror="this.parentElement.style.background='linear-gradient(135deg,#8a4a1d,#1d130b)';this.style.display='none'"/>
+        </div>
+        <span class="tag">Heritage</span>
+        <div class="info">
+          <div class="style">The Audience</div>
+          <div class="ref">Fulani parts · statement gold</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testimonials" data-screen-label="Testimonials">
+  <div class="wrap">
+    <div class="test-head">
+      <span class="eyebrow"><span class="num">05</span>Said in the Chair</span>
+      <h2>Love letters from <em>our crowns.</em></h2>
+    </div>
+
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="qmark">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="quote">Six hours flew by. My scalp didn't hurt. My edges are still where I left them. I cried in the mirror — that's how good they look.</p>
+        <div class="who">
+          <div class="avatar"><img alt="" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=120&q=80&auto=format&fit=crop" onerror="this.parentElement.style.background='var(--cognac)';this.style.display='none'"/></div>
+          <div><div class="nm">Imani A.</div><div class="svc-got">Knotless Braids · Dallas</div></div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="qmark">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="quote">I flew in from LA for my wedding day. Elidine did my trial, the bridal crown, and my mother's hair. We all looked like a Vogue spread.</p>
+        <div class="who">
+          <div class="avatar"><img alt="" src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=120&q=80&auto=format&fit=crop" onerror="this.parentElement.style.background='var(--cognac)';this.style.display='none'"/></div>
+          <div><div class="nm">Tomi O.</div><div class="svc-got">Bridal Crown · Los Angeles</div></div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="qmark">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="quote">My daughter is 7 and usually screams the whole way through. She left holding flowers, smiling, asking when she could come back. That's it. That's the review.</p>
+        <div class="who">
+          <div class="avatar"><img alt="" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&q=80&auto=format&fit=crop" onerror="this.parentElement.style.background='var(--cognac)';this.style.display='none'"/></div>
+          <div><div class="nm">Aaliyah &amp; Zuri M.</div><div class="svc-got">Little Crowns · Garland</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOKING ============ -->
+<section id="booking" class="booking" data-screen-label="Booking">
+  <div class="wrap">
+    <div class="section-label">
+      <span class="eyebrow"><span class="num">06</span>Book Now</span>
+    </div>
+    <div class="booking-head">
+      <h2>Call to reserve<br/>your <em>chair.</em></h2>
+      <p>
+        All appointments are booked by phone. Call us to choose your style, find an open day,
+        and secure your time. A <strong style="color:var(--gold-soft)">$50 deposit</strong>
+        is collected during the call — non-refundable on cancellation, but transferred in full
+        to your service balance when you arrive.
+      </p>
+    </div>
+
+    <div class="book-call">
+      <div class="book-call-main">
+        <div class="book-call-card">
+          <div class="book-call-label">Call to book</div>
+          <a href="tel:+19292029714" class="book-call-number">(929) 202 · 9714</a>
+          <p class="book-call-sub">Available during atelier hours · one chair at a time</p>
+          <a href="tel:+19292029714" class="btn btn-light book-call-btn">Call Now <span class="arrow">→</span></a>
+        </div>
+
+        <div class="book-call-steps">
+          <div class="book-call-step">
+            <span>01</span>
+            <div>
+              <h4>Tell us your vision</h4>
+              <p>Share the style you want, your hair length and texture, and any inspiration you have in mind.</p>
+            </div>
+          </div>
+          <div class="book-call-step">
+            <span>02</span>
+            <div>
+              <h4>Pick your day</h4>
+              <p>We'll check the calendar together and find a time that works — sessions run 2 to 8 hours depending on the style.</p>
+            </div>
+          </div>
+          <div class="book-call-step">
+            <span>03</span>
+            <div>
+              <h4>Secure your seat</h4>
+              <p>Pay the $50 deposit over the phone. You'll receive a confirmation with prep instructions and parking notes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="book-call-aside">
+        <div class="book-call-aside-inner">
+          <h4>Deposit policy</h4>
+          <ul>
+            <li>$50 deposit required to hold your appointment</li>
+            <li>Non-refundable if you cancel or no-show</li>
+            <li>Applied in full to your service balance on arrival</li>
+            <li>One free reschedule with 48 hours' notice</li>
+          </ul>
+          <p class="book-call-note">Can't call right now? Email <a href="mailto:hello@elidine.com">hello@elidine.com</a> and we'll reach out during business hours.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+.book-call{
+  display:grid;
+  grid-template-columns:1.45fr 1fr;
+  gap:36px;
+  align-items:start;
+}
+.book-call-main{display:flex;flex-direction:column;gap:28px}
+.book-call-card{
+  background:linear-gradient(160deg, rgba(201,161,106,.14), rgba(164,90,38,.04) 60%, rgba(246,237,224,.02));
+  border:1px solid rgba(201,161,106,.4);
+  border-radius:6px;
+  padding:42px 36px;
+  text-align:center;
+}
+.book-call-label{
+  font-size:10px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--gold-soft);font-weight:500;margin-bottom:12px;
+}
+.book-call-number{
+  display:block;
+  font-family:var(--serif);
+  font-size:clamp(36px, 6vw, 52px);
+  color:var(--ivory);
+  text-decoration:none;
+  letter-spacing:.04em;
+  line-height:1.1;
+  margin-bottom:10px;
+}
+.book-call-number:hover{color:var(--gold-soft)}
+.book-call-sub{
+  color:rgba(246,237,224,.6);
+  font-size:14px;
+  margin-bottom:28px;
+}
+.book-call-btn{
+  display:inline-flex;
+  padding:18px 32px;
+  font-size:12px;
+  letter-spacing:.22em;
+}
+.book-call-steps{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+.book-call-step{
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+  background:linear-gradient(180deg, rgba(246,237,224,.04), rgba(246,237,224,.02));
+  border:1px solid rgba(246,237,224,.14);
+  border-radius:6px;
+  padding:24px 28px;
+}
+.book-call-step > span{
+  font-family:var(--sans);
+  font-size:10px;
+  letter-spacing:.28em;
+  font-weight:600;
+  color:var(--espresso);
+  background:var(--gold);
+  padding:5px 10px;
+  border-radius:4px;
+  flex-shrink:0;
+}
+.book-call-step h4{
+  font-family:var(--serif);
+  font-size:20px;
+  color:var(--ivory);
+  margin:0 0 6px;
+  font-weight:600;
+}
+.book-call-step p{
+  color:rgba(246,237,224,.65);
+  font-size:14px;
+  line-height:1.6;
+  margin:0;
+}
+.book-call-aside{position:sticky;top:90px}
+.book-call-aside-inner{
+  background:linear-gradient(180deg, rgba(246,237,224,.04), rgba(246,237,224,.02));
+  border:1px solid rgba(246,237,224,.14);
+  border-radius:6px;
+  padding:32px 28px;
+}
+.book-call-aside-inner h4{
+  font-family:var(--serif);
+  font-size:24px;
+  color:var(--ivory);
+  margin:0 0 18px;
+}
+.book-call-aside-inner ul{
+  list-style:none;
+  padding:0;
+  margin:0 0 24px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.book-call-aside-inner li{
+  font-size:14px;
+  color:rgba(246,237,224,.72);
+  line-height:1.5;
+  padding-left:18px;
+  position:relative;
+}
+.book-call-aside-inner li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:.55em;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--gold);
+}
+.book-call-note{
+  font-size:13px;
+  color:rgba(246,237,224,.55);
+  line-height:1.6;
+  margin:0;
+  padding-top:18px;
+  border-top:1px solid rgba(246,237,224,.1);
+}
+.book-call-note a{color:var(--gold);text-decoration:underline}
+.book-call-note a:hover{color:var(--gold-soft)}
+@media (max-width:1080px){
+  .book-call{grid-template-columns:1fr;gap:24px}
+  .book-call-aside{position:static}
+  .book-call-card{padding:32px 24px}
+}
+</style>
+
+<!-- ============ VISIT ============ -->
+<section id="visit" class="visit" data-screen-label="Visit">
+  <div class="wrap">
+    <div class="section-label">
+      <span class="eyebrow"><span class="num">07</span>Visit the Atelier</span>
+    </div>
+    <div class="visit-grid">
+      <div>
+        <h2>1969 Arapaho Rd<br/><em>Garland, Texas.</em></h2>
+        <p style="font-size:16.5px;color:var(--mocha);max-width:480px;line-height:1.7;margin:0">
+          A quiet, private second-floor studio twenty minutes northeast of downtown Dallas.
+          We work by appointment only — please don't drop in. Parking is free; the door is unmarked.
+          Look for the gold Elidine sigil on the buzzer.
+        </p>
+
+        <div class="visit-info">
+          <div class="blk">
+            <h4>Address</h4>
+            <p><strong>Elidine Atelier</strong><br/>1969 Arapaho Road<br/>Apt 2010<br/>Garland, TX 75044</p>
+          </div>
+          <div class="blk">
+            <h4>Contact</h4>
+            <p>
+              <a href="tel:+19292029714">(929) 202 · 9714</a><br/>
+              <a href="mailto:hello@elidine.com">hello@elidine.com</a><br/>
+              <a href="https://www.elidine.com" target="_blank" rel="noreferrer">@elidine</a>
+            </p>
+          </div>
+          <div class="blk" style="grid-column:span 2">
+            <h4>Atelier Hours</h4>
+            <ul class="hours-list">
+              <li><span class="day">Monday</span><span class="closed">Closed · resting hands</span></li>
+              <li><span class="day">Tuesday</span><span>10 : 00 — 19 : 00</span></li>
+              <li><span class="day">Wednesday</span><span>10 : 00 — 19 : 00</span></li>
+              <li><span class="day">Thursday</span><span>10 : 00 — 20 : 00</span></li>
+              <li><span class="day">Friday</span><span>09 : 00 — 20 : 00</span></li>
+              <li><span class="day">Saturday</span><span>08 : 00 — 18 : 00</span></li>
+              <li><span class="day">Sunday</span><span class="closed">By private booking</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-card">
+        <!-- stylized map -->
+        <svg viewBox="0 0 500 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(29,19,11,.08)" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="500" height="600" fill="url(#grid)"/>
+          <!-- roads -->
+          <path d="M 0,300 Q 200,260 500,310" stroke="rgba(29,19,11,.18)" stroke-width="22" fill="none"/>
+          <path d="M 0,300 Q 200,260 500,310" stroke="rgba(246,237,224,.6)" stroke-width="2" fill="none" stroke-dasharray="6 8"/>
+          <path d="M 240,0 L 260,600" stroke="rgba(29,19,11,.12)" stroke-width="14" fill="none"/>
+          <path d="M 240,0 L 260,600" stroke="rgba(246,237,224,.5)" stroke-width="1.5" fill="none" stroke-dasharray="4 6"/>
+          <path d="M 60,540 Q 220,420 480,520" stroke="rgba(29,19,11,.14)" stroke-width="10" fill="none"/>
+          <!-- blocks -->
+          <rect x="40" y="40" width="160" height="180" fill="rgba(164,90,38,.08)" rx="4"/>
+          <rect x="290" y="80" width="170" height="150" fill="rgba(164,90,38,.06)" rx="4"/>
+          <rect x="50" y="360" width="140" height="170" fill="rgba(164,90,38,.07)" rx="4"/>
+          <rect x="300" y="380" width="160" height="180" fill="rgba(164,90,38,.05)" rx="4"/>
+          <!-- labels -->
+          <text x="120" y="135" font-family="Playfair Display" font-weight="700" font-size="13" fill="rgba(29,19,11,.5)" text-anchor="middle" letter-spacing="2">ARAPAHO RD</text>
+          <text x="372" y="160" font-family="Playfair Display" font-weight="700" font-size="11" fill="rgba(29,19,11,.45)" text-anchor="middle" letter-spacing="2">JUPITER</text>
+          <text x="120" y="455" font-family="Playfair Display" font-weight="700" font-size="11" fill="rgba(29,19,11,.45)" text-anchor="middle" letter-spacing="2">PRESTON</text>
+        </svg>
+        <div class="map-pin">
+          <div class="pulse"></div>
+          <div class="dot"></div>
+        </div>
+        <div class="addr-chip">
+          <div>
+            <h5>Elidine Atelier</h5>
+            <p>1969 Arapaho Rd · Apt 2010 · Garland, TX</p>
+          </div>
+          <a class="pill" href="https://www.google.com/maps/search/?api=1&query=1969+Arapaho+Road+Garland+TX" target="_blank" rel="noreferrer">Directions ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Elidine</div>
+        <p>A private braiding atelier in Garland, Texas. Couture protective styles, scalp-first technique, and crowns that turn heads from the parking lot to the red carpet.</p>
+      </div>
+      <div class="foot-col">
+        <h5>The Atelier</h5>
+        <ul>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#services">Service Menu</a></li>
+          <li><a href="#lookbook">The Lookbook</a></li>
+          <li><a href="#icons">Inspirations</a></li>
+          <li><a href="blog/index.html">The Journal</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Visit</h5>
+        <ul>
+          <li>1969 Arapaho Rd</li>
+          <li>Apt 2010 · Garland, TX</li>
+          <li><a href="tel:+19292029714">(929) 202 · 9714</a></li>
+          <li><a href="mailto:hello@elidine.com">hello@elidine.com</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Care &amp; Policy</h5>
+        <ul>
+          <li><a href="tel:+19292029714">Call to Book</a></li>
+          <li><a href="#booking">Deposit Policy</a></li>
+          <li><a href="blog/aftercare-ritual.html">Aftercare Guide</a></li>
+          <li><a href="#">Gift Cards</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <div>© 2026 Elidine · website design and customer support powered by <strong style="color:var(--gold-soft);font-weight:600">Eleventh House CX</strong></div>
+      <div class="ig">
+        <a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a>
+        <a href="https://tiktok.com" target="_blank" rel="noreferrer">TikTok</a>
+        <a href="https://pinterest.com" target="_blank" rel="noreferrer">Pinterest</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ---------- Smooth anchor offsets ----------
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const tgt = document.querySelector(a.getAttribute('href'));
+    if(tgt){
+      e.preventDefault();
+      window.scrollTo({top: tgt.offsetTop - 70, behavior:'smooth'});
+    }
+  });
+});
+
+// ---------- Scroll reveal ----------
+const revealTargets = document.querySelectorAll('#icons, .testimonials');
+if('IntersectionObserver' in window){
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in-view');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.18, rootMargin:'0px 0px -8% 0px'});
+  revealTargets.forEach(el => io.observe(el));
+} else {
+  revealTargets.forEach(el => el.classList.add('in-view'));
+}
+</script>
+
+</body>
+</html>

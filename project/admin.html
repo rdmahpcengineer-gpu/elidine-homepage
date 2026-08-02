@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Elidine — Booking Admin</title>
+  <style>
+    :root {
+      --bg: #1d130b;
+      --ivory: #f6ede0;
+      --gold: #c9a16a;
+      --gold-soft: #dcbb8a;
+      --espresso: #2a1a0e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ivory);
+      min-height: 100vh;
+      padding: 40px 24px;
+    }
+    .wrap { max-width: 900px; margin: 0 auto; }
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    h1 em { color: var(--gold-soft); font-style: normal; }
+    .sub { color: rgba(246,237,224,.6); font-size: 14px; margin-bottom: 32px; }
+    .auth {
+      background: rgba(246,237,224,.04);
+      border: 1px solid rgba(246,237,224,.14);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .auth label { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; color: var(--gold-soft); }
+    .auth input {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--espresso);
+      border: 1px solid rgba(246,237,224,.2);
+      border-radius: 6px;
+      color: var(--ivory);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .auth button, .actions button {
+      padding: 10px 20px;
+      background: var(--gold);
+      color: var(--espresso);
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .auth button:hover, .actions button:hover { opacity: .9; }
+    .actions button.decline { background: transparent; border: 1px solid rgba(246,237,224,.3); color: var(--ivory); }
+    .booking {
+      background: rgba(246,237,224,.04);
+      border: 1px solid rgba(201,161,106,.35);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .booking h3 { font-size: 18px; margin-bottom: 4px; }
+    .booking .meta { font-size: 13px; color: rgba(246,237,224,.65); margin-bottom: 16px; }
+    .booking .detail { font-size: 14px; margin-bottom: 6px; }
+    .booking .detail strong { color: var(--gold-soft); font-weight: 500; }
+    .actions { display: flex; gap: 12px; margin-top: 16px; }
+    .empty { color: rgba(246,237,224,.5); font-size: 14px; padding: 40px 0; text-align: center; }
+    .status { font-size: 12px; color: var(--gold); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; }
+    .error { color: #e88; font-size: 13px; margin-top: 8px; }
+    a.back { color: var(--gold); font-size: 13px; text-decoration: none; display: inline-block; margin-bottom: 24px; }
+    a.back:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="elidine.html">← Back to site</a>
+    <h1>Booking <em>admin</em></h1>
+    <p class="sub">Review pending appointment requests. Approve to confirm on Google Calendar, or decline to release the slot. <a href="live-calls.html" style="color:var(--gold)">Live calls →</a></p>
+
+    <div class="auth" id="authPanel">
+      <label for="adminKey">Admin API key</label>
+      <input type="password" id="adminKey" placeholder="Enter your ADMIN_API_KEY"/>
+      <button type="button" id="loadBtn">Load pending bookings</button>
+      <p class="error" id="authError" hidden></p>
+    </div>
+
+    <div id="status" class="status" hidden></div>
+    <div id="bookings"></div>
+  </div>
+
+  <script>
+    const API_BASE = window.location.origin;
+    const keyInput = document.getElementById('adminKey');
+    const loadBtn = document.getElementById('loadBtn');
+    const bookingsEl = document.getElementById('bookings');
+    const statusEl = document.getElementById('status');
+    const authError = document.getElementById('authError');
+
+    const savedKey = sessionStorage.getItem('elidine_admin_key');
+    if (savedKey) keyInput.value = savedKey;
+
+    function fmtDate(iso) {
+      if (!iso) return '—';
+      const d = new Date(iso);
+      return d.toLocaleString('en-US', {
+        weekday: 'short', month: 'short', day: 'numeric',
+        hour: 'numeric', minute: '2-digit', timeZoneName: 'short'
+      });
+    }
+
+    async function loadBookings() {
+      const key = keyInput.value.trim();
+      if (!key) { authError.textContent = 'Enter your admin API key.'; authError.hidden = false; return; }
+      authError.hidden = true;
+      sessionStorage.setItem('elidine_admin_key', key);
+      statusEl.textContent = 'Loading…';
+      statusEl.hidden = false;
+      bookingsEl.innerHTML = '';
+
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/bookings`, {
+          headers: { 'X-Admin-Key': key },
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to load');
+
+        statusEl.textContent = `${data.bookings.length} pending request${data.bookings.length === 1 ? '' : 's'}`;
+        if (!data.bookings.length) {
+          bookingsEl.innerHTML = '<p class="empty">No pending bookings. New requests will appear here.</p>';
+          return;
+        }
+
+        bookingsEl.innerHTML = data.bookings.map(b => `
+          <div class="booking" data-event-id="${b.eventId}">
+            <h3>${b.service || b.summary || 'Appointment'}</h3>
+            <div class="meta">${fmtDate(b.start)} → ${fmtDate(b.end)}</div>
+            <div class="detail"><strong>Email:</strong> ${b.clientEmail || '—'}</div>
+            <div class="detail"><strong>Phone:</strong> ${b.clientPhone || '—'}</div>
+            ${b.htmlLink ? `<div class="detail"><a href="${b.htmlLink}" target="_blank" rel="noreferrer" style="color:var(--gold)">View in Google Calendar</a></div>` : ''}
+            <div class="actions">
+              <button type="button" class="approve" data-id="${b.eventId}">Approve</button>
+              <button type="button" class="decline" data-id="${b.eventId}">Decline</button>
+            </div>
+          </div>
+        `).join('');
+
+        bookingsEl.querySelectorAll('.approve').forEach(btn => {
+          btn.addEventListener('click', () => updateBooking(btn.dataset.id, 'approved'));
+        });
+        bookingsEl.querySelectorAll('.decline').forEach(btn => {
+          btn.addEventListener('click', () => updateBooking(btn.dataset.id, 'declined'));
+        });
+      } catch (err) {
+        statusEl.hidden = true;
+        authError.textContent = err.message;
+        authError.hidden = false;
+      }
+    }
+
+    async function updateBooking(eventId, action) {
+      const key = keyInput.value.trim();
+      const label = action === 'approved' ? 'Approve' : 'Decline';
+      if (!confirm(`${label} this booking?`)) return;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/update-booking`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Admin-Key': key,
+          },
+          body: JSON.stringify({ eventId, action }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Update failed');
+        loadBookings();
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+
+    loadBtn.addEventListener('click', loadBookings);
+    if (savedKey) loadBookings();
+  </script>
+</body>
+</html>

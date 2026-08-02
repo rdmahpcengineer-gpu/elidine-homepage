@@ -1,10 +1,10 @@
 /* ==========================================================================
-   Sweethandsbraid · The Journal
+   Elidine · The Journal
    Shared blog stylesheet — mirrors the homepage design system verbatim,
    then adds editorial (blog index + article) components.
    ========================================================================== */
 
-/* ---------- Design tokens (copied from Sweethandsbraid.html) ---------- */
+/* ---------- Design tokens (copied from elidine.html) ---------- */
 :root{
   --ivory:#f6ede0;
   --ivory-2:#f1e6d4;

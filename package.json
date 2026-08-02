@@ -1,0 +1,15 @@
+{
+  "name": "elidine-homepage",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes serve . -l 3000",
+    "dev:api": "node scripts/dev.mjs"
+  },
+  "dependencies": {
+    "googleapis": "^144.0.0",
+    "resend": "^6.18.1",
+    "stripe": "^22.4.0"
+  }
+}
